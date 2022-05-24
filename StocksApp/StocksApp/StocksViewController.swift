@@ -12,10 +12,11 @@ final class StocksViewController: UIViewController {
     private lazy var tableView: UITableView = {
        let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .brown
+        tableView.backgroundColor = .systemBackground
         tableView.register(StockCell.self, forCellReuseIdentifier: StockCell.typeName)
         tableView.separatorStyle = .none
         tableView.dataSource = self
+        
        return tableView
     }()
     
@@ -45,15 +46,11 @@ extension StocksViewController: UITableViewDataSource {
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.typeName, for: indexPath) as! StockCell
-        
+        cell.setBackgroundColor(for: indexPath.row)
         return cell
     }
     
     
 }
 
-extension NSObject {
-    static var typeName: String {
-        String(describing: self)
-    }
-}
+
