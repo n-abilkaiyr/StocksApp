@@ -62,4 +62,8 @@ extension StocksViewController: UITableViewDelegate {
         cell.viewTapped()
 
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+         68
+    }
 }

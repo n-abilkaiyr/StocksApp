@@ -16,7 +16,6 @@ extension NSObject {
 
 // MARK: - UIFont extension
 extension UIFont {
-    
     static func regular(size: CGFloat) -> UIFont {
         guard let font = UIFont(name: "Montserrat-Regular", size: size) else {
             return UIFont.systemFont(ofSize: size, weight: .regular)
@@ -25,7 +24,6 @@ extension UIFont {
     }
     
     static func light(size: CGFloat) -> UIFont {
-        
         guard let font = UIFont(name: "Montserrat-Light", size: size) else {
             return UIFont.systemFont(ofSize: size, weight: .light)
         }

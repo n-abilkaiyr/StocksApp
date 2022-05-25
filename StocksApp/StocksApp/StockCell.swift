@@ -92,12 +92,14 @@ final class StockCell: UITableViewCell {
     }
     
     private func animateWrapperView() {
-        let previousBackgroundColor = wrapperView.backgroundColor!
+        guard let previousBackgroundColor = wrapperView.backgroundColor else { return }
    
-        UIView.animate(withDuration: 0.2, delay: 0.0, options:[.autoreverse], animations: {
+        UIView.animate(withDuration: 0.1, delay: 0.0, options:[.curveEaseOut], animations: {
             self.wrapperView.backgroundColor = UIColor.StockCell.selectionColor
         }, completion: { _ in
-            self.wrapperView.backgroundColor = previousBackgroundColor
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseIn]) {
+                self.wrapperView.backgroundColor = previousBackgroundColor
+            }
         })
     }
     private func setupViews() {
@@ -123,8 +125,7 @@ final class StockCell: UITableViewCell {
             
             //iconImageView
             iconImageView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 8),
-            iconImageView.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 8),
-            iconImageView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor, constant: -8),
+            iconImageView.centerYAnchor.constraint(equalTo: wrapperView.centerYAnchor),
             iconImageView.heightAnchor.constraint(equalToConstant: 52),
             iconImageView.widthAnchor.constraint(equalToConstant: 52),
             
