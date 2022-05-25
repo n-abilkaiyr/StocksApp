@@ -16,6 +16,7 @@ final class StocksViewController: UIViewController {
         tableView.register(StockCell.self, forCellReuseIdentifier: StockCell.typeName)
         tableView.separatorStyle = .none
         tableView.dataSource = self
+        tableView.delegate = self
         
        return tableView
     }()
@@ -39,18 +40,26 @@ final class StocksViewController: UIViewController {
 }
 
 
+// MARK: - UITableViewDataSource
 extension StocksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         10
     }
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.typeName, for: indexPath) as! StockCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.typeName, for: indexPath) as? StockCell else { return UITableViewCell() }
         cell.setBackgroundColor(for: indexPath.row)
         return cell
     }
-    
-    
 }
 
+// MARK: - UITableViewDelegate
+extension StocksViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) as? StockCell else{ return }
+        
+        cell.viewTapped()
 
+    }
+}

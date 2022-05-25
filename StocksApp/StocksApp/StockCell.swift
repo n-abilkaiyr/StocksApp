@@ -23,7 +23,7 @@ final class StockCell: UITableViewCell {
     private lazy var symbolLabel: UILabel = {
         let label = UILabel()
         label.text = "YNDX"
-        label.font = UIFont.Bold(size: 18)
+        label.font = UIFont.bold(size: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,7 +39,7 @@ final class StockCell: UITableViewCell {
     private lazy var companyNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Yandex, LLC"
-        label.font = UIFont.SemiBold(size: 12)
+        label.font = UIFont.semiBold(size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -47,7 +47,7 @@ final class StockCell: UITableViewCell {
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.text = "4 764,6 ₽"
-        label.font = UIFont.Bold(size: 18)
+        label.font = UIFont.bold(size: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -56,11 +56,8 @@ final class StockCell: UITableViewCell {
     private lazy var percentLabel: UILabel = {
         let label = UILabel()
         label.text = "+55 ₽ (1,15%)"
-        label.font = UIFont.SemiBold(size: 12)
-        label.textColor = UIColor(red: 36 / 255,
-                                  green: 178 / 255,
-                                  blue: 93 / 255,
-                                  alpha: 1)
+        label.font = UIFont.semiBold(size: 12)
+        label.textColor = UIColor.StockCell.percentTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -86,10 +83,25 @@ final class StockCell: UITableViewCell {
     
     func setBackgroundColor(for row: Int) {
         wrapperView.backgroundColor = row % 2 == 0
-        ? UIColor.grayCellColor
-        : UIColor.whiteCellColor
+        ? UIColor.StockCell.grayCellColor
+        : UIColor.StockCell.whiteCellColor
+    }
+    
+    func viewTapped() {
+        animateWrapperView()
+    }
+    
+    private func animateWrapperView() {
+        let previousBackgroundColor = wrapperView.backgroundColor!
+   
+        UIView.animate(withDuration: 0.2, delay: 0.0, options:[.autoreverse], animations: {
+            self.wrapperView.backgroundColor = UIColor.StockCell.selectionColor
+        }, completion: { _ in
+            self.wrapperView.backgroundColor = previousBackgroundColor
+        })
     }
     private func setupViews() {
+        selectionStyle = .none
         contentView.addSubview(wrapperView)
         
         [iconImageView,
@@ -101,10 +113,9 @@ final class StockCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-        
+       
         NSLayoutConstraint.activate([
             //wrapperView
-            
             wrapperView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             wrapperView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             wrapperView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -123,22 +134,22 @@ final class StockCell: UITableViewCell {
 
             //isFavoriteImageView
             isFavoriteImageView.leadingAnchor.constraint(equalTo: symbolLabel.trailingAnchor, constant: 6),
-            isFavoriteImageView.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 17),
+            isFavoriteImageView.centerYAnchor.constraint(equalTo: symbolLabel.centerYAnchor),
             isFavoriteImageView.heightAnchor.constraint(equalToConstant: 18),
             isFavoriteImageView.widthAnchor.constraint(equalToConstant: 16),
 
             //companyNameLabel
-            companyNameLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 12),
+            companyNameLabel.leadingAnchor.constraint(equalTo: symbolLabel.leadingAnchor),
             companyNameLabel.topAnchor.constraint(equalTo: symbolLabel.bottomAnchor),
 
             //priceLabel
-            priceLabel.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -priceLabel.bounds.width),
+            priceLabel.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -17),
             priceLabel.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 14),
 
             //percentLabel
             percentLabel.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -12),
             percentLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor),
-
+            
           
            
         ])
@@ -146,5 +157,25 @@ final class StockCell: UITableViewCell {
 }
 
 
+
+// MARK: - UIColor extension for Stock cell color
+extension UIColor {
+    fileprivate enum StockCell {
+        static var grayCellColor: UIColor  { return UIColor(red: 240 / 255,
+                                                        green: 244 / 255,
+                                                        blue: 247 / 255,
+                                                        alpha: 1) }
+        static var whiteCellColor: UIColor { .white }
+        
+        static var percentTextColor: UIColor { UIColor(red: 36 / 255,
+                                                       green: 178 / 255,
+                                                       blue: 93 / 255,
+                                                       alpha: 1) }
+        
+        static var selectionColor: UIColor {
+            .gray.withAlphaComponent(0.3)
+        }
+    }
+}
 
 

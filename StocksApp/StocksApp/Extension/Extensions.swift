@@ -14,38 +14,46 @@ extension NSObject {
     }
 }
 
-// MARK: - UIFont + Extension
+// MARK: - UIFont extension
 extension UIFont {
     
-    static func Regular(size: CGFloat) -> UIFont {
-        return UIFont(name: "Montserrat-Regular", size: size)!
+    static func regular(size: CGFloat) -> UIFont {
+        guard let font = UIFont(name: "Montserrat-Regular", size: size) else {
+            return UIFont.systemFont(ofSize: size, weight: .regular)
+        }
+        return font
     }
     
-    static func Light(size: CGFloat) -> UIFont {
-        return UIFont(name: "Montserrat-Light", size: size)!
+    static func light(size: CGFloat) -> UIFont {
+        
+        guard let font = UIFont(name: "Montserrat-Light", size: size) else {
+            return UIFont.systemFont(ofSize: size, weight: .light)
+        }
+        return font
     }
     
-    static func Bold(size: CGFloat) -> UIFont {
-        return UIFont(name: "Montserrat-Bold", size: size)!
+    static func bold(size: CGFloat) -> UIFont {
+        guard let font = UIFont(name: "Montserrat-Bold", size: size) else {
+            return UIFont.systemFont(ofSize: size, weight: .bold)
+        }
+        return font
     }
     
-    static func Medium(size: CGFloat) -> UIFont {
-        return UIFont(name: "Montserrat-Medium", size: size)!
+    static func medium(size: CGFloat) -> UIFont {
+        guard let font = UIFont(name: "Montserrat-Medium", size: size) else {
+            return UIFont.systemFont(ofSize: size, weight: .medium)
+        }
+        return font
     }
     
-    static func SemiBold(size: CGFloat) -> UIFont {
-        return UIFont(name: "Montserrat-SemiBold", size: size)!
+    static func semiBold(size: CGFloat) -> UIFont {
+        guard let font = UIFont(name: "Montserrat-SemiBold", size: size) else {
+            return UIFont.systemFont(ofSize: size, weight: .semibold)
+        }
+        return font
+        
     }
 }
 
-
-// MARK: - UIColor + Extension
-extension UIColor {
-    static var grayCellColor: UIColor  { return UIColor(red: 240 / 255,
-                                                        green: 244 / 255,
-                                                        blue: 247 / 255,
-                                                        alpha: 1) }
-    static var whiteCellColor: UIColor { .white }
-}
 
 
