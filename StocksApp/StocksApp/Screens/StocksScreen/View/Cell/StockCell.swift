@@ -36,7 +36,7 @@ final class StockCell: UITableViewCell {
         return imageView
     }()
     
-    private lazy var companyNameLabel: UILabel = {
+    private lazy var stockNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Yandex, LLC"
         label.font = UIFont.semiBold(size: 12)
@@ -91,6 +91,13 @@ final class StockCell: UITableViewCell {
         animateWrapperView()
     }
     
+    func configure(with stock: Stock) {
+        symbolLabel.text = stock.symbolDescription
+        stockNameLabel.text = stock.nameDescription
+        priceLabel.text = stock.currentPriceDescription
+        percentLabel.text = stock.priceChangesDescription
+    }
+    
     private func animateWrapperView() {
         guard let previousBackgroundColor = wrapperView.backgroundColor else { return }
    
@@ -109,7 +116,7 @@ final class StockCell: UITableViewCell {
         [iconImageView,
          symbolLabel,
          isFavoriteImageView,
-         companyNameLabel,
+         stockNameLabel,
          priceLabel,
          percentLabel].forEach { wrapperView.addSubview($0) }
     }
@@ -140,8 +147,8 @@ final class StockCell: UITableViewCell {
             isFavoriteImageView.widthAnchor.constraint(equalToConstant: 16),
 
             //companyNameLabel
-            companyNameLabel.leadingAnchor.constraint(equalTo: symbolLabel.leadingAnchor),
-            companyNameLabel.topAnchor.constraint(equalTo: symbolLabel.bottomAnchor),
+            stockNameLabel.leadingAnchor.constraint(equalTo: symbolLabel.leadingAnchor),
+            stockNameLabel.topAnchor.constraint(equalTo: symbolLabel.bottomAnchor),
 
             //priceLabel
             priceLabel.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -17),
@@ -161,7 +168,7 @@ final class StockCell: UITableViewCell {
 
 // MARK: - UIColor extension for Stock cell color
 extension UIColor {
-    fileprivate enum StockCell {
+        enum StockCell {
         static var grayCellColor: UIColor  { return UIColor(red: 240 / 255,
                                                         green: 244 / 255,
                                                         blue: 247 / 255,
