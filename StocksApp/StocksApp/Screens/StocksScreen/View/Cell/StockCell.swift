@@ -57,7 +57,6 @@ final class StockCell: UITableViewCell {
         let label = UILabel()
         label.text = "+55 ₽ (1,15%)"
         label.font = UIFont.semiBold(size: 12)
-        label.textColor = UIColor.StockCell.percentTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -91,11 +90,12 @@ final class StockCell: UITableViewCell {
         animateWrapperView()
     }
     
-    func configure(with stock: Stock) {
-        symbolLabel.text = stock.symbolDescription
-        stockNameLabel.text = stock.nameDescription
-        priceLabel.text = stock.currentPriceDescription
-        percentLabel.text = stock.priceChangesDescription
+    func configure(with model: StockModelProtocol) {
+        symbolLabel.text = model.symbol
+        stockNameLabel.text = model.name
+        priceLabel.text = model.price
+        percentLabel.text = model.change
+        percentLabel.textColor = model.changeColor
     }
     
     private func animateWrapperView() {
@@ -168,17 +168,19 @@ final class StockCell: UITableViewCell {
 
 // MARK: - UIColor extension for Stock cell color
 extension UIColor {
-        enum StockCell {
+    enum StockCell {
         static var grayCellColor: UIColor  { return UIColor(red: 240 / 255,
-                                                        green: 244 / 255,
-                                                        blue: 247 / 255,
-                                                        alpha: 1) }
+                                                            green: 244 / 255,
+                                                            blue: 247 / 255,
+                                                            alpha: 1) }
         static var whiteCellColor: UIColor { .white }
         
-        static var percentTextColor: UIColor { UIColor(red: 36 / 255,
+        static var percenGreenColor: UIColor { UIColor(red: 36 / 255,
                                                        green: 178 / 255,
                                                        blue: 93 / 255,
                                                        alpha: 1) }
+        
+        static var percenRedColor: UIColor { UIColor.systemRed }
         
         static var selectionColor: UIColor {
             .gray.withAlphaComponent(0.3)

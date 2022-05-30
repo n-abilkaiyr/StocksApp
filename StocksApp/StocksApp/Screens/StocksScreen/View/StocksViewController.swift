@@ -8,12 +8,23 @@
 import UIKit
 
 final class StocksViewController: UIViewController {
-    private var stocks: [Stock] = []
+    private let presenter: StocksPresenterProtocol
+    
+    init(presenter: StocksPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+ 
     private lazy var tableView: UITableView = {
        let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemBackground
         tableView.register(StockCell.self, forCellReuseIdentifier: StockCell.typeName)
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
@@ -24,13 +35,16 @@ final class StocksViewController: UIViewController {
  // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupVeiw()
         setupSubview()
-        fetchStocks()
+        presenter.loadView()
     }
     
 // MARK: - Methods
-    private func setupSubview() {
+    private func setupVeiw() {
         view.backgroundColor = .systemBackground
+    }
+    private func setupSubview() {
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -40,19 +54,6 @@ final class StocksViewController: UIViewController {
         ])
     }
 
-    private func fetchStocks() {
-        let client: NetworkService = Network()
-        let stockService = StockService(client: client)
-        stockService.fetchStocks {[weak self] result in
-            switch result {
-            case .success(let stocks):
-                self?.stocks = stocks
-                self?.tableView.reloadData()
-            case .failure(let error):
-                self?.showError(error.localizedDescription)
-            }
-        }
-    }
     
     private func showError(_ message: String) {
         // show error
@@ -63,13 +64,13 @@ final class StocksViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension StocksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        stocks.count
+        presenter.itemCount
     }
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.typeName, for: indexPath) as? StockCell else { return UITableViewCell() }
         cell.setBackgroundColor(for: indexPath.row)
-        cell.configure(with: stocks[indexPath.row])
+        cell.configure(with: presenter.model(for: indexPath))
         return cell
     }
 }
@@ -79,8 +80,11 @@ extension StocksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? StockCell else{ return }
         cell.viewTapped()
-        let detailStockVC = DetailStockViewController()
-        detailStockVC.configure(with: stocks[indexPath.row])
+        
+        let currentModel = presenter.model(for: indexPath)
+        let detailStockVC = ModuleBuilder.shared.detailStockModule(with: currentModel.id)
+        //Temporary method
+        detailStockVC.configure(with: presenter.model(for: indexPath))
         navigationController?.pushViewController(detailStockVC, animated: true)
     }
     
@@ -89,54 +93,20 @@ extension StocksViewController: UITableViewDelegate {
     }
 }
 
-
-
-// MARK: - Temporary
-struct Stock: Decodable {
-    private let id: String
-    private let name: String
-    private let symbol: String
-    private let image: String
-    private let currentPrice: Double
-    private let priceChange: Double
-    private let percentageChange: Double
-    
-
-    enum CodingKeys: String, CodingKey {
-        case id, name, symbol, image
-        case currentPrice = "current_price"
-        case priceChange = "price_change_24h"
-        case percentageChange = "price_change_percentage_24h"
+extension StocksViewController: StocksViewControllerProtocol {
+    func updateView() {
+        tableView.reloadData()
     }
+    
+    func updateView(withLoader isLoading: Bool) {
+        // show or hide loader
+    }
+    
+    func updateView(withError message: String) {
+        // show error message
+    }
+    
+    
 }
 
 
-extension Stock {
-    var nameDescription: String {
-        self.name
-    }
-    var symbolDescription: String {
-        self.symbol
-    }
-    var currentPriceDescription: String {
-        "\(Double( round(currentPrice * 100) / 100))"
-    }
-    
-    var priceChangesDescription: String {
-        var priceChange = priceChange
-        var resultText = ""
-        
-        if priceChange > 0 {
-            resultText.append("+")
-        } else if priceChange < 0 {
-            resultText.append("-")
-            priceChange *= -1
-        }
-        
-        resultText.append("$")
-        resultText.append("\(Double( round(priceChange * 100) / 100)) ")
-        resultText.append(" (\(Double(round(percentageChange * 100) / 100))%)")
-        
-        return resultText
-    }
-}

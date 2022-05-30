@@ -12,8 +12,11 @@
 		743B7759283FC21100B29E46 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743B7755283FC21100B29E46 /* Router.swift */; };
 		743B775A283FC21100B29E46 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743B7756283FC21100B29E46 /* NetworkError.swift */; };
 		743B775D2840166600B29E46 /* StocksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743B775C2840166600B29E46 /* StocksService.swift */; };
-		743B775F2840C73700B29E46 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743B775E2840C73700B29E46 /* TabBarController.swift */; };
 		743B77652840D0C100B29E46 /* DetailStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743B77642840D0C100B29E46 /* DetailStockViewController.swift */; };
+		744A9AFB284297BB005B5523 /* StocksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A9AFA284297BB005B5523 /* StocksPresenter.swift */; };
+		744A9AFE2842A903005B5523 /* StocksRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A9AFD2842A903005B5523 /* StocksRouter.swift */; };
+		744A9B002842A97F005B5523 /* StockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A9AFF2842A97F005B5523 /* StockModel.swift */; };
+		744A9B022842AA1E005B5523 /* StockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A9B012842AA1E005B5523 /* StockResponse.swift */; };
 		74B7F907283D268900F303CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B7F906283D268900F303CD /* AppDelegate.swift */; };
 		74B7F90B283D268900F303CD /* StocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B7F90A283D268900F303CD /* StocksViewController.swift */; };
 		74B7F910283D268E00F303CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74B7F90F283D268E00F303CD /* Assets.xcassets */; };
@@ -24,6 +27,9 @@
 		74B7F929283D4BB600F303CD /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74B7F925283D4BB600F303CD /* Montserrat-Medium.ttf */; };
 		74B7F92A283D4BB600F303CD /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74B7F926283D4BB600F303CD /* Montserrat-Light.ttf */; };
 		74B7F92F283D638B00F303CD /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74B7F92E283D638B00F303CD /* Montserrat-SemiBold.ttf */; };
+		74C0B8F52843DF07005C79E7 /* ModuleBulilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0B8F42843DF07005C79E7 /* ModuleBulilder.swift */; };
+		74C0B8FC28441587005C79E7 /* StockDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0B8FB28441587005C79E7 /* StockDetailPresenter.swift */; };
+		74C0B8FE28441982005C79E7 /* StockDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0B8FD28441982005C79E7 /* StockDetailModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +38,11 @@
 		743B7755283FC21100B29E46 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		743B7756283FC21100B29E46 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		743B775C2840166600B29E46 /* StocksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksService.swift; sourceTree = "<group>"; };
-		743B775E2840C73700B29E46 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		743B77642840D0C100B29E46 /* DetailStockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStockViewController.swift; sourceTree = "<group>"; };
+		744A9AFA284297BB005B5523 /* StocksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksPresenter.swift; sourceTree = "<group>"; };
+		744A9AFD2842A903005B5523 /* StocksRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksRouter.swift; sourceTree = "<group>"; };
+		744A9AFF2842A97F005B5523 /* StockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockModel.swift; sourceTree = "<group>"; };
+		744A9B012842AA1E005B5523 /* StockResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockResponse.swift; sourceTree = "<group>"; };
 		74B7F903283D268900F303CD /* StocksApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StocksApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74B7F906283D268900F303CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74B7F90A283D268900F303CD /* StocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +55,9 @@
 		74B7F925283D4BB600F303CD /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		74B7F926283D4BB600F303CD /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		74B7F92E283D638B00F303CD /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		74C0B8F42843DF07005C79E7 /* ModuleBulilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBulilder.swift; sourceTree = "<group>"; };
+		74C0B8FB28441587005C79E7 /* StockDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailPresenter.swift; sourceTree = "<group>"; };
+		74C0B8FD28441982005C79E7 /* StockDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +84,7 @@
 		743B774B283FC04700B29E46 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				743B775E2840C73700B29E46 /* TabBarController.swift */,
-				743B7751283FC10400B29E46 /* Services */,
+				743B775B2840163700B29E46 /* StockService */,
 				743B774C283FC05500B29E46 /* StocksScreen */,
 				743B77602840D06300B29E46 /* DetailStockScreen */,
 			);
@@ -83,7 +94,6 @@
 		743B774C283FC05500B29E46 /* StocksScreen */ = {
 			isa = PBXGroup;
 			children = (
-				743B775B2840163700B29E46 /* Service */,
 				743B774F283FC07800B29E46 /* Model */,
 				743B774E283FC07300B29E46 /* View */,
 				743B774D283FC06A00B29E46 /* Presenter */,
@@ -94,6 +104,7 @@
 		743B774D283FC06A00B29E46 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				744A9AFA284297BB005B5523 /* StocksPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -110,6 +121,7 @@
 		743B774F283FC07800B29E46 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				744A9AFF2842A97F005B5523 /* StockModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -141,12 +153,14 @@
 			path = NetworkService;
 			sourceTree = "<group>";
 		};
-		743B775B2840163700B29E46 /* Service */ = {
+		743B775B2840163700B29E46 /* StockService */ = {
 			isa = PBXGroup;
 			children = (
+				744A9B012842AA1E005B5523 /* StockResponse.swift */,
+				744A9AFD2842A903005B5523 /* StocksRouter.swift */,
 				743B775C2840166600B29E46 /* StocksService.swift */,
 			);
-			path = Service;
+			path = StockService;
 			sourceTree = "<group>";
 		};
 		743B77602840D06300B29E46 /* DetailStockScreen */ = {
@@ -170,6 +184,7 @@
 		743B77622840D0A500B29E46 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				74C0B8FD28441982005C79E7 /* StockDetailModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,8 +192,19 @@
 		743B77632840D0AC00B29E46 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				74C0B8FB28441587005C79E7 /* StockDetailPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		744A9AFC2842A75A005B5523 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				743B7751283FC10400B29E46 /* Services */,
+				74B7F92B283D594900F303CD /* Extension */,
+				74C0B8F42843DF07005C79E7 /* ModuleBulilder.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		74B7F8FA283D268900F303CD = {
@@ -200,8 +226,8 @@
 		74B7F905283D268900F303CD /* StocksApp */ = {
 			isa = PBXGroup;
 			children = (
+				744A9AFC2842A75A005B5523 /* Core */,
 				743B774B283FC04700B29E46 /* Screens */,
-				74B7F92B283D594900F303CD /* Extension */,
 				74B7F91C283D480E00F303CD /* Font */,
 				743B774A283FB9FD00B29E46 /* Suppoting Files */,
 			);
@@ -304,14 +330,20 @@
 			files = (
 				74B7F922283D491500F303CD /* Extensions.swift in Sources */,
 				743B775A283FC21100B29E46 /* NetworkError.swift in Sources */,
+				744A9B002842A97F005B5523 /* StockModel.swift in Sources */,
 				743B775D2840166600B29E46 /* StocksService.swift in Sources */,
-				743B775F2840C73700B29E46 /* TabBarController.swift in Sources */,
+				744A9AFB284297BB005B5523 /* StocksPresenter.swift in Sources */,
+				744A9AFE2842A903005B5523 /* StocksRouter.swift in Sources */,
 				74B7F90B283D268900F303CD /* StocksViewController.swift in Sources */,
+				74C0B8FE28441982005C79E7 /* StockDetailModel.swift in Sources */,
+				74C0B8FC28441587005C79E7 /* StockDetailPresenter.swift in Sources */,
+				74C0B8F52843DF07005C79E7 /* ModuleBulilder.swift in Sources */,
 				74B7F907283D268900F303CD /* AppDelegate.swift in Sources */,
 				743B7759283FC21100B29E46 /* Router.swift in Sources */,
 				743B7757283FC21100B29E46 /* HTTPMethod.swift in Sources */,
 				743B7758283FC21100B29E46 /* NetworkService.swift in Sources */,
 				74B7F91B283D2DB300F303CD /* StockCell.swift in Sources */,
+				744A9B022842AA1E005B5523 /* StockResponse.swift in Sources */,
 				743B77652840D0C100B29E46 /* DetailStockViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

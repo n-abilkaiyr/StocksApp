@@ -43,7 +43,7 @@ final class Network: NetworkService {
                 completion(.failure(.dataError))
                 return
             }
-
+    
             guard let decodableResult = try? JSONDecoder().decode(T.self, from: data) else {
                 completion(.failure(.decodeError))
                 return

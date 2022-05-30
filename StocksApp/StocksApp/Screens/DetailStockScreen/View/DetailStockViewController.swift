@@ -8,6 +8,19 @@
 import UIKit
 
 class DetailStockViewController: UIViewController {
+    private let presenter: StockDetailPreneterProtocol
+    private let stockId:  String
+    
+    init(presenter: StockDetailPreneterProtocol, id: String) {
+        self.presenter = presenter
+        stockId = id
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -49,8 +62,14 @@ class DetailStockViewController: UIViewController {
     private lazy var priceChangeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.semiBold(size: 12)
-        label.textColor = UIColor.StockCell.percentTextColor
         return label
+    }()
+    
+    private lazy var graphicImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     
@@ -58,15 +77,18 @@ class DetailStockViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .systemBackground
         setupNavigationBar()
-        setupViews()
+        setupSubviews()
         setupConstraints()
-    }
-
+        presenter.loadView(with: stockId)
+        }
     
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.tabBarController?.tabBar.isHidden = false
     }
+    
+    
     private lazy var priceStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [priceLabel, priceChangeLabel])
         stackView.translatesAutoresizingMaskIntoConstraints  = false
@@ -78,11 +100,14 @@ class DetailStockViewController: UIViewController {
     }()
     
     // MARK: - Methods
-    func configure(with stock: Stock) {
-        titleLabel.text = stock.nameDescription
-        subTitleLabel.text = stock.symbolDescription
-        priceChangeLabel.text = stock.priceChangesDescription
-        priceLabel.text = "$" + stock.currentPriceDescription
+    
+    //Temporary method
+    func configure(with model: StockModelProtocol) {
+        titleLabel.text = model.name
+        subTitleLabel.text = model.symbol
+        priceChangeLabel.text = model.change
+        priceLabel.text = "$" + model.price
+        priceChangeLabel.textColor = model.changeColor
     }
     
     private func setupNavigationBar() {
@@ -91,14 +116,22 @@ class DetailStockViewController: UIViewController {
         navigationItem.setLeftBarButton(backBarButtonItem, animated: false)
         navigationItem.setRightBarButton(rightBarButtonItem, animated: false)
     }
-    private func setupViews() {
+    private func setupSubviews() {
         view.addSubview(priceStackView)
+        view.addSubview(graphicImageView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            //priceStackView
             priceStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            priceStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 63)
+            priceStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 63),
+            
+            // graphicImageView
+            graphicImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            graphicImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            graphicImageView.topAnchor.constraint(equalTo: priceStackView.bottomAnchor, constant: 30),
+            graphicImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -110,4 +143,23 @@ class DetailStockViewController: UIViewController {
     @objc func rightButttonTapped() {
         // change rightBarButtonItem Color
     }
+}
+
+// MARK: - StockDetailViewControllerProtocol
+extension DetailStockViewController: StockDetailViewControllerProtocol {
+    func updateView() {
+        let detailStockModel = presenter.model()
+        print(detailStockModel?.prices)
+        graphicImageView.image = UIImage(named: "graph")
+    }
+    
+    func updateView(withLoader isLoading: Bool) {
+        print("isLoading: \(isLoading)")
+    }
+    
+    func updateView(withError message: String) {
+        //
+    }
+    
+    
 }
