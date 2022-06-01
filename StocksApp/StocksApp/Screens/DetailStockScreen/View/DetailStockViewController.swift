@@ -8,6 +8,7 @@
 import UIKit
 
 class DetailStockViewController: UIViewController {
+    private var favoriteAction: (() -> Void)?
     private let presenter: StockDetailPreneterProtocol
     private let stockId:  String
     
@@ -45,11 +46,23 @@ class DetailStockViewController: UIViewController {
     
     private lazy var backBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(backButtonTapped))
+
+        return button
+    }()
+    
+    private lazy var rightButton: UIButton = {
+        let button = UIButton()
+        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
+
+        button.setImage(UIImage(systemName: "star", withConfiguration: config), for: .normal)
+        button.setImage(UIImage(systemName: "star.fill", withConfiguration: config), for: .selected)
+        button.addTarget(self, action: #selector(rightButttonTapped), for: .touchUpInside)
+                            
         return button
     }()
     
     private lazy var rightBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(rightButttonTapped))
+        let button = UIBarButtonItem(customView: rightButton)
         return button
     }()
     
@@ -80,12 +93,13 @@ class DetailStockViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         presenter.loadView(with: stockId)
-        }
+    }
     
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.tabBarController?.tabBar.isHidden = false
+        navigationBarBorder(for: false)
     }
     
     
@@ -108,6 +122,10 @@ class DetailStockViewController: UIViewController {
         priceChangeLabel.text = model.change
         priceLabel.text = "$" + model.price
         priceChangeLabel.textColor = model.changeColor
+        rightButton.isSelected = model.isFavorite
+        favoriteAction = {
+            model.setFavorite()
+        }
     }
     
     private func setupNavigationBar() {
@@ -115,8 +133,28 @@ class DetailStockViewController: UIViewController {
         self.navigationItem.titleView = vStackView
         navigationItem.setLeftBarButton(backBarButtonItem, animated: false)
         navigationItem.setRightBarButton(rightBarButtonItem, animated: false)
+        navigationBarBorder(for: true)
+        
+    }
+    private func navigationBarBorder(for state: Bool) {
+        let name = "bottomBorder"
+        if state {
+            let bottomLine = CALayer()
+            bottomLine.name = name
+            bottomLine.frame = CGRect(x: 0.0,
+                                      y: (navigationController?.navigationBar.frame.height) ?? 0 - 2,
+                                      width: navigationController?.navigationBar.frame.width ?? 0,
+                                      height: 2.0)
+            bottomLine.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
+            navigationController?.navigationBar.layer.addSublayer(bottomLine)
+        } else {
+            if let index = navigationController?.navigationBar.layer.sublayers?.firstIndex(where: {$0.name == name}) {
+                navigationController?.navigationBar.layer.sublayers?.remove(at: index)
+            }
+        }
     }
     private func setupSubviews() {
+        
         view.addSubview(priceStackView)
         view.addSubview(graphicImageView)
     }
@@ -127,13 +165,17 @@ class DetailStockViewController: UIViewController {
             priceStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             priceStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 63),
             
-            // graphicImageView
+            //graphicImageView
             graphicImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             graphicImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             graphicImageView.topAnchor.constraint(equalTo: priceStackView.bottomAnchor, constant: 30),
-            graphicImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            graphicImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+           
         ])
     }
+    
+   
     
     // MARK: - Selectors
     @objc func backButtonTapped() {
@@ -141,7 +183,8 @@ class DetailStockViewController: UIViewController {
     }
     
     @objc func rightButttonTapped() {
-        // change rightBarButtonItem Color
+        rightButton.isSelected.toggle()
+        favoriteAction?()
     }
 }
 

@@ -54,5 +54,8 @@ extension UIFont {
 }
 
 
+extension UIColor {
+    static let favoriteButtonColor = UIColor(red: 1, green: 202 / 255, blue: 28 / 255, alpha: 1)
+}
 
 

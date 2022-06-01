@@ -10,6 +10,8 @@ import UIKit
 
 
 final class StockCell: UITableViewCell {
+    private var favoriteAction: (() -> Void)?
+    var favoriteButtonCompletion: ((UITableViewCell) -> Void)?
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -28,12 +30,14 @@ final class StockCell: UITableViewCell {
         return label
     }()
     
-    private lazy var isFavoriteImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "Fav")
-        return imageView
+    
+    private lazy var favoriteButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "favorite-off"), for: .normal)
+        button.setImage(UIImage(named: "favorite-on"), for: .selected)
+        button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private lazy var stockNameLabel: UILabel = {
@@ -80,6 +84,12 @@ final class StockCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        favoriteAction = nil
+        favoriteButtonCompletion = nil
+    }
+    
     func setBackgroundColor(for row: Int) {
         wrapperView.backgroundColor = row % 2 == 0
         ? UIColor.StockCell.grayCellColor
@@ -96,6 +106,11 @@ final class StockCell: UITableViewCell {
         priceLabel.text = model.price
         percentLabel.text = model.change
         percentLabel.textColor = model.changeColor
+        favoriteButton.isSelected = model.isFavorite
+
+        favoriteAction = {
+            model.setFavorite()
+        }
     }
     
     private func animateWrapperView() {
@@ -115,7 +130,7 @@ final class StockCell: UITableViewCell {
         
         [iconImageView,
          symbolLabel,
-         isFavoriteImageView,
+         favoriteButton,
          stockNameLabel,
          priceLabel,
          percentLabel].forEach { wrapperView.addSubview($0) }
@@ -141,10 +156,10 @@ final class StockCell: UITableViewCell {
             symbolLabel.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 14),
 
             //isFavoriteImageView
-            isFavoriteImageView.leadingAnchor.constraint(equalTo: symbolLabel.trailingAnchor, constant: 6),
-            isFavoriteImageView.centerYAnchor.constraint(equalTo: symbolLabel.centerYAnchor),
-            isFavoriteImageView.heightAnchor.constraint(equalToConstant: 18),
-            isFavoriteImageView.widthAnchor.constraint(equalToConstant: 16),
+            favoriteButton.leadingAnchor.constraint(equalTo: symbolLabel.trailingAnchor, constant: 6),
+            favoriteButton.centerYAnchor.constraint(equalTo: symbolLabel.centerYAnchor),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 18),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 16),
 
             //companyNameLabel
             stockNameLabel.leadingAnchor.constraint(equalTo: symbolLabel.leadingAnchor),
@@ -156,11 +171,15 @@ final class StockCell: UITableViewCell {
 
             //percentLabel
             percentLabel.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -12),
-            percentLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor),
-            
-          
-           
+            percentLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor)
         ])
+    }
+    
+    // MARK: - Selectors
+    @objc private func favoriteButtonTapped() {
+        favoriteButton.isSelected.toggle()
+        favoriteAction?()
+        favoriteButtonCompletion?(self)
     }
 }
 

@@ -1,16 +1,16 @@
 //
-//  ViewController.swift
+//  FavoriteStocksViewController.swift
 //  StocksApp
 //
-//  Created by Abilkaiyr Nurzhan on 24.05.2022.
+//  Created by Abilkaiyr Nurzhan on 01.06.2022.
 //
 
 import UIKit
 
-final class StocksViewController: UIViewController {
-    private let presenter: StocksPresenterProtocol
+final class FavoriteStocksViewController: UIViewController {
+    private let presenter: FavoriteStocksPresenterProtocol
     
-    init(presenter: StocksPresenterProtocol) {
+    init(presenter: FavoriteStocksPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,13 +38,13 @@ final class StocksViewController: UIViewController {
         setupVeiw()
         setupSubview()
         presenter.loadView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-    
 // MARK: - Methods
     private func setupVeiw() {
         view.backgroundColor = .systemBackground
@@ -67,28 +67,32 @@ final class StocksViewController: UIViewController {
 
 
 // MARK: - UITableViewDataSource
-extension StocksViewController: UITableViewDataSource {
+extension FavoriteStocksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.itemCount
+        presenter.itemsCount
     }
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.typeName, for: indexPath) as? StockCell else { return UITableViewCell() }
         cell.setBackgroundColor(for: indexPath.row)
         cell.configure(with: presenter.model(for: indexPath))
+        cell.favoriteButtonCompletion = { [weak self] tableViewCell in
+            if let indexPath = self?.tableView.indexPath(for: tableViewCell) {
+                self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
         return cell
     }
 }
 
 // MARK: - UITableViewDelegate
-extension StocksViewController: UITableViewDelegate {
+extension FavoriteStocksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? StockCell else{ return }
         cell.viewTapped()
         
         let currentModel = presenter.model(for: indexPath)
         let detailStockVC = ModuleBuilder.shared.detailStockModule(with: currentModel.id)
-        //Temporary method
         detailStockVC.configure(with: presenter.model(for: indexPath))
         navigationController?.pushViewController(detailStockVC, animated: true)
     }
@@ -98,7 +102,7 @@ extension StocksViewController: UITableViewDelegate {
     }
 }
 
-extension StocksViewController: StocksViewControllerProtocol {
+extension FavoriteStocksViewController: FavoriteStocksViewControllerProtocol {
     func updateView() {
         tableView.reloadData()
     }
@@ -111,7 +115,4 @@ extension StocksViewController: StocksViewControllerProtocol {
         // show error message
     }
     
-    
 }
-
-

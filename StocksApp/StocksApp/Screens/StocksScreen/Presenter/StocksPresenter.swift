@@ -23,15 +23,19 @@ protocol StocksPresenterProtocol {
 final class StocksPersenter: StocksPresenterProtocol {
    
     private let service:  StockServiceProtocol
-    private var stocks: [StockModelProtocol] = []
+    private var allStocks: [Stock] = []
     weak var viewController: StocksViewControllerProtocol?
     
     init(service: StockServiceProtocol) {
         self.service = service
     }
     
+    private var stockModels: [StockModelProtocol]  {
+        allStocks.map {StockModel(stock: $0)}
+    }
+    
     var itemCount: Int {
-        stocks.count
+        allStocks.count
     }
     
     func loadView() {
@@ -41,7 +45,7 @@ final class StocksPersenter: StocksPresenterProtocol {
             
             switch result {
             case .success(let stocks):
-                self?.stocks = stocks.map {StockModel(stock: $0)}
+                self?.allStocks = stocks
                 self?.viewController?.updateView()
             case .failure(let error):
                 self?.viewController?.updateView(withError: error.localizedDescription)
@@ -50,7 +54,7 @@ final class StocksPersenter: StocksPresenterProtocol {
     }
     
     func model(for indexPath: IndexPath) -> StockModelProtocol {
-        stocks[indexPath.row]
+        stockModels[indexPath.row]
     }
     
 }

@@ -10,15 +10,16 @@ import UIKit
 
 final class ModuleBuilder {
     static let shared: ModuleBuilder = .init()
+    private init () {}
     
+    
+    let favoritesService: FavoriteServiceProtocol =  FavoritesLocalService()
+        
     private lazy var network: NetworkService = {
         Network()
     }()
     
-    private init () {}
-    
-    
-   private func networkService() -> NetworkService {
+    private func networkService() -> NetworkService {
         network
     }
     
@@ -36,8 +37,11 @@ final class ModuleBuilder {
         return detailStockVC
     }
     
-   private func favoritesModule() -> UIViewController {
-        UIViewController()
+    private func favoritesModule() -> UIViewController {
+        let presenter = FavoriteStocksPresenter(service: stocksService())
+        let favoritesVC = FavoriteStocksViewController(presenter: presenter)
+        presenter.viewController = favoritesVC
+        return favoritesVC
     }
     
     private  func searchModule() -> UIViewController {
@@ -48,7 +52,7 @@ final class ModuleBuilder {
         StockService(client: network)
     }
     
-
+    
     func tabBarController() -> UIViewController {
         let tabBar = UITabBarController()
         let stockVC = stocksModule()
@@ -57,11 +61,11 @@ final class ModuleBuilder {
         
         [favoritesVC, searchVC].forEach { $0.view.backgroundColor = .systemBackground }
         
-    
+        
         tabBar.viewControllers = [
-        createNavigationController(with: stockVC, title: "Stocks", image:  UIImage(named: "diagramTab")),
-        createNavigationController(with: favoritesVC, title: "Favourite", image:  UIImage(named: "favoriteTab")),
-        createNavigationController(with: searchVC, title: "Search", image: UIImage(named: "searchTab"))
+            createNavigationController(with: stockVC, title: "Stocks", image:  UIImage(named: "diagramTab")),
+            createNavigationController(with: favoritesVC, title: "Favourite", image:  UIImage(named: "favoriteTab")),
+            createNavigationController(with: searchVC, title: "Search", image: UIImage(named: "searchTab"))
         ]
         
         return tabBar
