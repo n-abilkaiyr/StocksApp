@@ -30,9 +30,14 @@
 		74B7F929283D4BB600F303CD /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74B7F925283D4BB600F303CD /* Montserrat-Medium.ttf */; };
 		74B7F92A283D4BB600F303CD /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74B7F926283D4BB600F303CD /* Montserrat-Light.ttf */; };
 		74B7F92F283D638B00F303CD /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74B7F92E283D638B00F303CD /* Montserrat-SemiBold.ttf */; };
-		74C0B8F52843DF07005C79E7 /* ModuleBulilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0B8F42843DF07005C79E7 /* ModuleBulilder.swift */; };
+		74C0B8F52843DF07005C79E7 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0B8F42843DF07005C79E7 /* Assembly.swift */; };
 		74C0B8FC28441587005C79E7 /* StockDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0B8FB28441587005C79E7 /* StockDetailPresenter.swift */; };
-		74C0B8FE28441982005C79E7 /* StockDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0B8FD28441982005C79E7 /* StockDetailModel.swift */; };
+		74C0B8FE28441982005C79E7 /* ChartResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0B8FD28441982005C79E7 /* ChartResponse.swift */; };
+		74C158F52849621B000C4889 /* FileManagerFavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C158F42849621B000C4889 /* FileManagerFavoritesService.swift */; };
+		74C158F728496229000C4889 /* UserDefaultsFavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C158F628496229000C4889 /* UserDefaultsFavoritesService.swift */; };
+		74C158FA284967AA000C4889 /* ChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C158F9284967AA000C4889 /* ChartService.swift */; };
+		74C158FC28497602000C4889 /* FavoriteUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C158FB28497602000C4889 /* FavoriteUpdateService.swift */; };
+		74C1590228497AE4000C4889 /* StocksStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C1590128497AE4000C4889 /* StocksStorageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,9 +66,14 @@
 		74B7F925283D4BB600F303CD /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		74B7F926283D4BB600F303CD /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		74B7F92E283D638B00F303CD /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
-		74C0B8F42843DF07005C79E7 /* ModuleBulilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBulilder.swift; sourceTree = "<group>"; };
+		74C0B8F42843DF07005C79E7 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		74C0B8FB28441587005C79E7 /* StockDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailPresenter.swift; sourceTree = "<group>"; };
-		74C0B8FD28441982005C79E7 /* StockDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailModel.swift; sourceTree = "<group>"; };
+		74C0B8FD28441982005C79E7 /* ChartResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartResponse.swift; sourceTree = "<group>"; };
+		74C158F42849621B000C4889 /* FileManagerFavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerFavoritesService.swift; sourceTree = "<group>"; };
+		74C158F628496229000C4889 /* UserDefaultsFavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsFavoritesService.swift; sourceTree = "<group>"; };
+		74C158F9284967AA000C4889 /* ChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartService.swift; sourceTree = "<group>"; };
+		74C158FB28497602000C4889 /* FavoriteUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteUpdateService.swift; sourceTree = "<group>"; };
+		74C1590128497AE4000C4889 /* StocksStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksStorageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +154,7 @@
 		743B7751283FC10400B29E46 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				74504D5B2846A403005AA071 /* FavoriteService */,
+				74C1590328498321000C4889 /* StorageService */,
 				743B7752283FC11800B29E46 /* NetworkService */,
 			);
 			path = Services;
@@ -174,6 +184,7 @@
 		743B77602840D06300B29E46 /* DetailStockScreen */ = {
 			isa = PBXGroup;
 			children = (
+				74C158F828496788000C4889 /* Service */,
 				743B77622840D0A500B29E46 /* Model */,
 				743B77612840D09F00B29E46 /* View */,
 				743B77632840D0AC00B29E46 /* Presenter */,
@@ -192,7 +203,6 @@
 		743B77622840D0A500B29E46 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				74C0B8FD28441982005C79E7 /* StockDetailModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -210,7 +220,7 @@
 			children = (
 				743B7751283FC10400B29E46 /* Services */,
 				74B7F92B283D594900F303CD /* Extension */,
-				74C0B8F42843DF07005C79E7 /* ModuleBulilder.swift */,
+				74C0B8F42843DF07005C79E7 /* Assembly.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -219,6 +229,9 @@
 			isa = PBXGroup;
 			children = (
 				74504D5C2846A419005AA071 /* FavoriteService.swift */,
+				74C158F42849621B000C4889 /* FileManagerFavoritesService.swift */,
+				74C158F628496229000C4889 /* UserDefaultsFavoritesService.swift */,
+				74C158FB28497602000C4889 /* FavoriteUpdateService.swift */,
 			);
 			path = FavoriteService;
 			sourceTree = "<group>";
@@ -293,6 +306,32 @@
 				74B7F921283D491500F303CD /* Extensions.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		74C158F828496788000C4889 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				74C0B8FD28441982005C79E7 /* ChartResponse.swift */,
+				74C158F9284967AA000C4889 /* ChartService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		74C1590328498321000C4889 /* StorageService */ = {
+			isa = PBXGroup;
+			children = (
+				74C159042849832F000C4889 /* StockStorageService */,
+				74504D5B2846A403005AA071 /* FavoriteService */,
+			);
+			path = StorageService;
+			sourceTree = "<group>";
+		};
+		74C159042849832F000C4889 /* StockStorageService */ = {
+			isa = PBXGroup;
+			children = (
+				74C1590128497AE4000C4889 /* StocksStorageService.swift */,
+			);
+			path = StockStorageService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,19 +410,24 @@
 			files = (
 				74B7F922283D491500F303CD /* Extensions.swift in Sources */,
 				74504D61284727DE005AA071 /* FavoriteStocksPresenter.swift in Sources */,
+				74C158FC28497602000C4889 /* FavoriteUpdateService.swift in Sources */,
 				743B775A283FC21100B29E46 /* NetworkError.swift in Sources */,
 				74504D6428472EFA005AA071 /* FavoriteStocksViewController.swift in Sources */,
 				744A9B002842A97F005B5523 /* StockModel.swift in Sources */,
 				743B775D2840166600B29E46 /* StocksService.swift in Sources */,
 				744A9AFB284297BB005B5523 /* StocksPresenter.swift in Sources */,
 				744A9AFE2842A903005B5523 /* StocksRouter.swift in Sources */,
+				74C1590228497AE4000C4889 /* StocksStorageService.swift in Sources */,
 				74B7F90B283D268900F303CD /* StocksViewController.swift in Sources */,
-				74C0B8FE28441982005C79E7 /* StockDetailModel.swift in Sources */,
+				74C0B8FE28441982005C79E7 /* ChartResponse.swift in Sources */,
 				74C0B8FC28441587005C79E7 /* StockDetailPresenter.swift in Sources */,
-				74C0B8F52843DF07005C79E7 /* ModuleBulilder.swift in Sources */,
+				74C158FA284967AA000C4889 /* ChartService.swift in Sources */,
+				74C158F52849621B000C4889 /* FileManagerFavoritesService.swift in Sources */,
+				74C0B8F52843DF07005C79E7 /* Assembly.swift in Sources */,
 				74B7F907283D268900F303CD /* AppDelegate.swift in Sources */,
 				743B7759283FC21100B29E46 /* Router.swift in Sources */,
 				743B7757283FC21100B29E46 /* HTTPMethod.swift in Sources */,
+				74C158F728496229000C4889 /* UserDefaultsFavoritesService.swift in Sources */,
 				74504D5D2846A419005AA071 /* FavoriteService.swift in Sources */,
 				743B7758283FC21100B29E46 /* NetworkService.swift in Sources */,
 				74B7F91B283D2DB300F303CD /* StockCell.swift in Sources */,

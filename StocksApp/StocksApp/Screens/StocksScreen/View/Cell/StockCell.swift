@@ -11,7 +11,6 @@ import UIKit
 
 final class StockCell: UITableViewCell {
     private var favoriteAction: (() -> Void)?
-    var favoriteButtonCompletion: ((UITableViewCell) -> Void)?
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -87,7 +86,6 @@ final class StockCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         favoriteAction = nil
-        favoriteButtonCompletion = nil
     }
     
     func setBackgroundColor(for row: Int) {
@@ -179,7 +177,6 @@ final class StockCell: UITableViewCell {
     @objc private func favoriteButtonTapped() {
         favoriteButton.isSelected.toggle()
         favoriteAction?()
-        favoriteButtonCompletion?(self)
     }
 }
 

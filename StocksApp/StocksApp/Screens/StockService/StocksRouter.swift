@@ -6,11 +6,10 @@
 //
 
 import Foundation
-// https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=100
 
 enum StocksRouter: Router {
     case stocks(currency: String, count: Int)
-    case stockDetail(id: String, currency: String, days: Int, interval: String)
+    case charts(id: String, currency: String, days: Int, isDaily: Bool)
    
     var baseUrl: String {
          "https://api.coingecko.com"
@@ -20,14 +19,14 @@ enum StocksRouter: Router {
         switch self {
         case .stocks:
             return "/api/v3/coins/markets"
-        case let .stockDetail(id: id, currency: _, days: _, interval: _):
+        case let .charts(id, _, _, _):
             return "/api/v3/coins/\(id)/market_chart"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .stocks, .stockDetail: return .get
+        case .stocks, .charts: return .get
         }
     }
     
@@ -37,10 +36,10 @@ enum StocksRouter: Router {
             return [ "vs_currency" : currency,
                     "per_page" : count ]
         
-        case let .stockDetail(_, currency, days, interval):
+        case let .charts(_, currency, days, isDaily):
             return [ "vs_currency" : currency,
                      "days" : days,
-                     "interval": interval ]
+                     "interval": isDaily ? "daily" : "" ]
         }
     }
     

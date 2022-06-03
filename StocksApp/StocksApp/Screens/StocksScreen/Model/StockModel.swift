@@ -21,14 +21,14 @@ protocol StockModelProtocol {
 }
 
 
-final class StockModel: StockModelProtocol  {
+final class StockModel: StockModelProtocol {
     
     private let stock: Stock
     private let favoritesService: FavoriteServiceProtocol
     
     init(stock: Stock) {
         self.stock = stock
-        self.favoritesService = ModuleBuilder.shared.favoritesService
+        self.favoritesService = Assembly.assembler.favoritesService
         isFavorite = favoritesService.isFavorite(for: id)
     }
     
@@ -84,9 +84,6 @@ final class StockModel: StockModelProtocol  {
         ? favoritesService.save(id: id)
         : favoritesService.remove(id: id)
     }
-    
-    
-    
 }
 
 

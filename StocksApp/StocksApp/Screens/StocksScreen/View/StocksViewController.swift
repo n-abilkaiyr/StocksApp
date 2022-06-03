@@ -40,10 +40,7 @@ final class StocksViewController: UIViewController {
         presenter.loadView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
+  
     
 // MARK: - Methods
     private func setupVeiw() {
@@ -87,9 +84,7 @@ extension StocksViewController: UITableViewDelegate {
         cell.viewTapped()
         
         let currentModel = presenter.model(for: indexPath)
-        let detailStockVC = ModuleBuilder.shared.detailStockModule(with: currentModel.id)
-        //Temporary method
-        detailStockVC.configure(with: presenter.model(for: indexPath))
+        let detailStockVC = Assembly.assembler.detailStockModule(with: currentModel)
         navigationController?.pushViewController(detailStockVC, animated: true)
     }
     
@@ -99,6 +94,7 @@ extension StocksViewController: UITableViewDelegate {
 }
 
 extension StocksViewController: StocksViewControllerProtocol {
+
     func updateView() {
         tableView.reloadData()
     }
@@ -111,6 +107,9 @@ extension StocksViewController: StocksViewControllerProtocol {
         // show error message
     }
     
+    func updateCell(for indexPath: IndexPath) {
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
     
 }
 

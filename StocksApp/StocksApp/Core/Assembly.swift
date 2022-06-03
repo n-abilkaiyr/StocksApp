@@ -8,39 +8,36 @@
 import Foundation
 import UIKit
 
-final class ModuleBuilder {
-    static let shared: ModuleBuilder = .init()
+final class Assembly {
+    static let assembler: Assembly = .init()
+    let favoritesService: FavoriteServiceProtocol =  FavoritesLocalService()
+    let stocksStorageService: StocksStorageServiceProtocol =  StocksStorageService()
     private init () {}
     
     
-    let favoritesService: FavoriteServiceProtocol =  FavoritesLocalService()
-        
-    private lazy var network: NetworkService = {
-        Network()
-    }()
-    
-    private func networkService() -> NetworkService {
-        network
-    }
+    private lazy var network: NetworkService = Network()
+    private lazy var stocksService: StockServiceProtocol = StockService(client: network)
+    private lazy var chartsService: ChartServiceProtocol = ChartService(client: network)
+    private lazy var stocksPresenter: StocksPresenterProtocol = StocksPersenter(service: stocksService)
     
     private func stocksModule() -> UIViewController {
-        let presenter = StocksPersenter(service: stocksService())
-        let stocksVC = StocksViewController(presenter: presenter)
-        presenter.viewController = stocksVC
+        let stocksVC = StocksViewController(presenter: stocksPresenter)
+        stocksPresenter.viewController = stocksVC
         return stocksVC
     }
     
-    func detailStockModule(with id: String) -> DetailStockViewController {
-        let presenter = StockDetailPresenter(service: stocksService())
-        let detailStockVC = DetailStockViewController(presenter: presenter, id: id)
+    func detailStockModule(with model: StockModelProtocol) -> DetailStockViewController {
+        let presenter = StockDetailPresenter(service: chartsService, model: model)
+        let detailStockVC = DetailStockViewController(presenter: presenter)
         presenter.stockDetailViewController = detailStockVC
         return detailStockVC
     }
     
     private func favoritesModule() -> UIViewController {
-        let presenter = FavoriteStocksPresenter(service: stocksService())
+        let presenter = FavoriteStocksPresenter()
         let favoritesVC = FavoriteStocksViewController(presenter: presenter)
         presenter.viewController = favoritesVC
+        presenter.delegate = stocksPresenter
         return favoritesVC
     }
     
@@ -48,9 +45,6 @@ final class ModuleBuilder {
         UIViewController()
     }
     
-    private func stocksService() -> StockServiceProtocol {
-        StockService(client: network)
-    }
     
     
     func tabBarController() -> UIViewController {
@@ -59,9 +53,7 @@ final class ModuleBuilder {
         let favoritesVC = favoritesModule()
         let searchVC = searchModule()
         
-        [favoritesVC, searchVC].forEach { $0.view.backgroundColor = .systemBackground }
-        
-        
+       
         tabBar.viewControllers = [
             createNavigationController(with: stockVC, title: "Stocks", image:  UIImage(named: "diagramTab")),
             createNavigationController(with: favoritesVC, title: "Favourite", image:  UIImage(named: "favoriteTab")),

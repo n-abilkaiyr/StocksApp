@@ -11,9 +11,14 @@ protocol StocksViewControllerProtocol: AnyObject {
     func updateView()
     func updateView(withLoader isLoading: Bool)
     func updateView(withError message: String)
+    func updateCell(for indexPath: IndexPath)
 }
 
-protocol StocksPresenterProtocol {
+protocol StockModelsDelegate: AnyObject {
+    func stockModels() -> [StockModelProtocol]
+}
+
+protocol StocksPresenterProtocol: StockModelsDelegate {
     var viewController: StocksViewControllerProtocol? { get set }
     var itemCount: Int { get }
     func loadView()
@@ -21,21 +26,18 @@ protocol StocksPresenterProtocol {
 }
 
 final class StocksPersenter: StocksPresenterProtocol {
-   
     private let service:  StockServiceProtocol
-    private var allStocks: [Stock] = []
+    private let stocksStorageService = Assembly.assembler.stocksStorageService
+    private var stocks: [StockModelProtocol] = []
     weak var viewController: StocksViewControllerProtocol?
     
     init(service: StockServiceProtocol) {
         self.service = service
+        startFavoriteNotificationObserving()
     }
-    
-    private var stockModels: [StockModelProtocol]  {
-        allStocks.map {StockModel(stock: $0)}
-    }
-    
+
     var itemCount: Int {
-        allStocks.count
+        stocks.count
     }
     
     func loadView() {
@@ -45,7 +47,8 @@ final class StocksPersenter: StocksPresenterProtocol {
             
             switch result {
             case .success(let stocks):
-                self?.allStocks = stocks
+                self?.stocksStorageService.save(stocks: stocks)
+                self?.stocks = stocks.map {StockModel(stock: $0)}
                 self?.viewController?.updateView()
             case .failure(let error):
                 self?.viewController?.updateView(withError: error.localizedDescription)
@@ -54,7 +57,28 @@ final class StocksPersenter: StocksPresenterProtocol {
     }
     
     func model(for indexPath: IndexPath) -> StockModelProtocol {
-        stockModels[indexPath.row]
+        stocks[indexPath.row]
     }
     
+}
+
+
+// MARK: - FavoriteUpdateServiceProtocol
+extension StocksPersenter: FavoriteUpdateServiceProtocol {
+    func setFavorite(notification: Notification) {
+        guard let id = notification.stockId,
+              let index = stocks.firstIndex(where: { $0.id == id }) else {
+            return
+        }
+        
+        viewController?.updateCell(for: IndexPath(row: index, section: 0))
+    }
+    
+}
+
+// MARK: - StockModelsDelegate
+extension StocksPersenter {
+    func stockModels() -> [StockModelProtocol] {
+        stocks
+    }
 }

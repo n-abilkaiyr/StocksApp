@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Stock: Decodable {
+struct Stock: Codable {
     let id: String
     let name: String
     let symbol: String
@@ -26,13 +26,4 @@ struct Stock: Decodable {
 }
 
 
-struct StockDetailResponse: Decodable {
-    let prices: [[Double]]
-    let totalVolumes: [[Double]]
-    
-    enum CodingKeys: String, CodingKey {
-        case prices
-        case totalVolumes = "total_volumes"
-    }
-}
 

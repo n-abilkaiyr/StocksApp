@@ -38,13 +38,8 @@ final class FavoriteStocksViewController: UIViewController {
         setupVeiw()
         setupSubview()
         presenter.loadView()
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
 // MARK: - Methods
     private func setupVeiw() {
         view.backgroundColor = .systemBackground
@@ -58,7 +53,6 @@ final class FavoriteStocksViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
     
     private func showError(_ message: String) {
         // show error
@@ -76,11 +70,6 @@ extension FavoriteStocksViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StockCell.typeName, for: indexPath) as? StockCell else { return UITableViewCell() }
         cell.setBackgroundColor(for: indexPath.row)
         cell.configure(with: presenter.model(for: indexPath))
-        cell.favoriteButtonCompletion = { [weak self] tableViewCell in
-            if let indexPath = self?.tableView.indexPath(for: tableViewCell) {
-                self?.tableView.deleteRows(at: [indexPath], with: .automatic)
-            }
-        }
         return cell
     }
 }
@@ -92,8 +81,7 @@ extension FavoriteStocksViewController: UITableViewDelegate {
         cell.viewTapped()
         
         let currentModel = presenter.model(for: indexPath)
-        let detailStockVC = ModuleBuilder.shared.detailStockModule(with: currentModel.id)
-        detailStockVC.configure(with: presenter.model(for: indexPath))
+        let detailStockVC = Assembly.assembler.detailStockModule(with: currentModel)
         navigationController?.pushViewController(detailStockVC, animated: true)
     }
     
@@ -103,6 +91,8 @@ extension FavoriteStocksViewController: UITableViewDelegate {
 }
 
 extension FavoriteStocksViewController: FavoriteStocksViewControllerProtocol {
+  
+    
     func updateView() {
         tableView.reloadData()
     }
@@ -113,6 +103,12 @@ extension FavoriteStocksViewController: FavoriteStocksViewControllerProtocol {
     
     func updateView(withError message: String) {
         // show error message
+    }
+    
+    func updateCell(for indexPath: IndexPath, state: Bool) {
+        state
+        ? tableView.insertRows(at: [indexPath], with: .automatic)
+        : tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
 }

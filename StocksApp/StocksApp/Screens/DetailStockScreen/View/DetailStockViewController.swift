@@ -8,13 +8,11 @@
 import UIKit
 
 class DetailStockViewController: UIViewController {
-    private var favoriteAction: (() -> Void)?
     private let presenter: StockDetailPreneterProtocol
-    private let stockId:  String
     
-    init(presenter: StockDetailPreneterProtocol, id: String) {
+    
+    init(presenter: StockDetailPreneterProtocol) {
         self.presenter = presenter
-        stockId = id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,10 +50,9 @@ class DetailStockViewController: UIViewController {
     
     private lazy var rightButton: UIButton = {
         let button = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .default)
-
-        button.setImage(UIImage(systemName: "star", withConfiguration: config), for: .normal)
-        button.setImage(UIImage(systemName: "star.fill", withConfiguration: config), for: .selected)
+        button.setImage(UIImage(named: "fav_detail"), for: .normal)
+        button.setImage(UIImage(named: "favorite-on"), for: .selected)
+        button.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         button.addTarget(self, action: #selector(rightButttonTapped), for: .touchUpInside)
                             
         return button
@@ -92,7 +89,8 @@ class DetailStockViewController: UIViewController {
         setupNavigationBar()
         setupSubviews()
         setupConstraints()
-        presenter.loadView(with: stockId)
+        configureView()
+        presenter.loadView()
     }
     
 
@@ -115,17 +113,13 @@ class DetailStockViewController: UIViewController {
     
     // MARK: - Methods
     
-    //Temporary method
-    func configure(with model: StockModelProtocol) {
-        titleLabel.text = model.name
-        subTitleLabel.text = model.symbol
-        priceChangeLabel.text = model.change
-        priceLabel.text = "$" + model.price
-        priceChangeLabel.textColor = model.changeColor
-        rightButton.isSelected = model.isFavorite
-        favoriteAction = {
-            model.setFavorite()
-        }
+    func configureView() {
+        titleLabel.text = presenter.model.name
+        subTitleLabel.text = presenter.model.symbol
+        priceChangeLabel.text = presenter.model.change
+        priceLabel.text = "$" + presenter.model.price
+        priceChangeLabel.textColor = presenter.model.changeColor
+        rightButton.isSelected = presenter.model.isFavorite
     }
     
     private func setupNavigationBar() {
@@ -134,8 +128,8 @@ class DetailStockViewController: UIViewController {
         navigationItem.setLeftBarButton(backBarButtonItem, animated: false)
         navigationItem.setRightBarButton(rightBarButtonItem, animated: false)
         navigationBarBorder(for: true)
-        
     }
+    
     private func navigationBarBorder(for state: Bool) {
         let name = "bottomBorder"
         if state {
@@ -184,25 +178,22 @@ class DetailStockViewController: UIViewController {
     
     @objc func rightButttonTapped() {
         rightButton.isSelected.toggle()
-        favoriteAction?()
+        presenter.model.setFavorite()
     }
 }
 
 // MARK: - StockDetailViewControllerProtocol
 extension DetailStockViewController: StockDetailViewControllerProtocol {
     func updateView() {
-        let detailStockModel = presenter.model()
-        print(detailStockModel?.prices)
         graphicImageView.image = UIImage(named: "graph")
     }
     
     func updateView(withLoader isLoading: Bool) {
-        print("isLoading: \(isLoading)")
+        
     }
     
     func updateView(withError message: String) {
         //
     }
-    
     
 }

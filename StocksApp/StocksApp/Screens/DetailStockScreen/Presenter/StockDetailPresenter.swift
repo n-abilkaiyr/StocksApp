@@ -14,37 +14,38 @@ protocol StockDetailViewControllerProtocol: AnyObject {
 }
 protocol StockDetailPreneterProtocol {
     var stockDetailViewController: StockDetailViewControllerProtocol? { get set }
-    func loadView(with id: String)
-    func model() -> StockDetailModelProtocol?
+    var model: StockModelProtocol { get }
+    func loadView()
 }
 
 
 final class StockDetailPresenter: StockDetailPreneterProtocol {
+
     weak var stockDetailViewController: StockDetailViewControllerProtocol?
-    private let service: StockServiceProtocol
-    private var stockDetailModel: StockDetailModelProtocol?
+    private let service: ChartServiceProtocol
+    private let stockModel: StockModelProtocol
     
-    init(service: StockServiceProtocol) {
+    init(service: ChartServiceProtocol, model: StockModelProtocol) {
         self.service = service
+        self.stockModel = model
     }
     
-    func loadView(with id: String) {
+    var model: StockModelProtocol {
+        stockModel
+    }
+    
+    func loadView() {
         stockDetailViewController?.updateView(withLoader: true)
-        service.fetchStockDetails(id: id) { [weak self] result in
+        service.fetchCharts(id: model.id) { [weak self] result in
             self?.stockDetailViewController?.updateView(withLoader: false)
             switch result {
-            case .success(let stockDetail):
-                self?.stockDetailModel = StockDetailModel(stockDetailResponse: stockDetail)
+            case .success(let charts):
+                charts.prices.forEach { print($0.date)}
                 self?.stockDetailViewController?.updateView()
             case .failure(let error):
                 self?.stockDetailViewController?.updateView(withError: error.localizedDescription)
             }
         }
     }
-    
-    func model() -> StockDetailModelProtocol? {
-        stockDetailModel
-    }
-    
     
 }
