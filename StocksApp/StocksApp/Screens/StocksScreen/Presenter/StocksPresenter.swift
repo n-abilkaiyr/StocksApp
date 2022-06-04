@@ -14,10 +14,6 @@ protocol StocksViewControllerProtocol: AnyObject {
     func updateCell(for indexPath: IndexPath)
 }
 
-protocol StockModelsDelegate: AnyObject {
-    func stockModels() -> [StockModelProtocol]
-}
-
 protocol StocksPresenterProtocol: StockModelsDelegate {
     var viewController: StocksViewControllerProtocol? { get set }
     var itemCount: Int { get }
@@ -45,8 +41,7 @@ final class StocksPersenter: StocksPresenterProtocol {
             self?.viewController?.updateView(withLoader: false)
             switch result {
             case .success(let stocks):
-                self?.service.setStocks(stocks: stocks)
-                self?.stocks = stocks.map {StockModel(stock: $0)}
+                self?.stocks = stocks
                 self?.viewController?.updateView()
             case .failure(let error):
                 self?.viewController?.updateView(withError: error.localizedDescription)
@@ -74,9 +69,4 @@ extension StocksPersenter: FavoriteUpdateServiceProtocol {
     
 }
 
-// MARK: - StockModelsDelegate
-extension StocksPersenter {
-    func stockModels() -> [StockModelProtocol] {
-        stocks
-    }
-}
+
