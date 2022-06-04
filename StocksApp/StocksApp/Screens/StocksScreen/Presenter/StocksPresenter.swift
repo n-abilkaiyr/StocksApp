@@ -27,7 +27,6 @@ protocol StocksPresenterProtocol: StockModelsDelegate {
 
 final class StocksPersenter: StocksPresenterProtocol {
     private let service:  StockServiceProtocol
-    private let stocksStorageService = Assembly.assembler.stocksStorageService
     private var stocks: [StockModelProtocol] = []
     weak var viewController: StocksViewControllerProtocol?
     
@@ -44,10 +43,9 @@ final class StocksPersenter: StocksPresenterProtocol {
         viewController?.updateView(withLoader: true)
         service.fetchStocks {[weak self] result in
             self?.viewController?.updateView(withLoader: false)
-            
             switch result {
             case .success(let stocks):
-                self?.stocksStorageService.save(stocks: stocks)
+                self?.service.setStocks(stocks: stocks)
                 self?.stocks = stocks.map {StockModel(stock: $0)}
                 self?.viewController?.updateView()
             case .failure(let error):

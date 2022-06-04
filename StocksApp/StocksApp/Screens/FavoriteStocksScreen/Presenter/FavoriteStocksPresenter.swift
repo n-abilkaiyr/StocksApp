@@ -29,12 +29,14 @@ final class FavoriteStocksPresenter: FavoriteStocksPresenterProtocol {
     private let favoriteService = Assembly.assembler.favoritesService
     private var stocks: [StockModelProtocol] = []
     private var previousfavoriteService: [StockModelProtocol] = []
+    private let service: StockServiceProtocol
     
     private var favoriteStockModels: [StockModelProtocol]  {
         stocks.filter { $0.isFavorite }
     }
     
-    init() {
+    init(service: StockServiceProtocol) {
+        self.service = service
         startFavoriteNotificationObserving()
     }
     
@@ -43,10 +45,18 @@ final class FavoriteStocksPresenter: FavoriteStocksPresenterProtocol {
     }
     
     func loadView() {
-        stocks = delegate?.stockModels() ?? []
-        previousfavoriteService = favoriteStockModels
-        viewController?.updateView()
+        viewController?.updateView(withLoader: true)
+        service.fetchStocks {[weak self] result in
+            self?.viewController?.updateView(withLoader: false)
+            switch result {
+            case .success(let stocks):
+                self?.stocks = stocks.map { StockModel(stock: $0) } // MYNA JERDE NOVYA NODEL SOZDAT ETPEU KEREK
+                self?.viewController?.updateView()
+            case .failure(let error):
+                self?.viewController?.updateView(withError: error.localizedDescription)
+        }
     }
+}
     
     func model(for indexPath: IndexPath) -> StockModelProtocol {
         return favoriteStockModels[indexPath.row]

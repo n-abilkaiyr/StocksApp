@@ -11,7 +11,6 @@ import UIKit
 final class Assembly {
     static let assembler: Assembly = .init()
     let favoritesService: FavoriteServiceProtocol =  FavoritesLocalService()
-    let stocksStorageService: StocksStorageServiceProtocol =  StocksStorageService()
     private init () {}
     
     
@@ -34,7 +33,7 @@ final class Assembly {
     }
     
     private func favoritesModule() -> UIViewController {
-        let presenter = FavoriteStocksPresenter()
+        let presenter = FavoriteStocksPresenter(service: stocksService)
         let favoritesVC = FavoriteStocksViewController(presenter: presenter)
         presenter.viewController = favoritesVC
         presenter.delegate = stocksPresenter
