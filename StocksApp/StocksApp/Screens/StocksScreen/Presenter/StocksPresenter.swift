@@ -14,7 +14,7 @@ protocol StocksViewControllerProtocol: AnyObject {
     func updateCell(for indexPath: IndexPath)
 }
 
-protocol StocksPresenterProtocol: StockModelsDelegate {
+protocol StocksPresenterProtocol {
     var viewController: StocksViewControllerProtocol? { get set }
     var itemCount: Int { get }
     func loadView()

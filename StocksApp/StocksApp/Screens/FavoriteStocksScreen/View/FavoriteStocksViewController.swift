@@ -110,5 +110,4 @@ extension FavoriteStocksViewController: FavoriteStocksViewControllerProtocol {
         ? tableView.insertRows(at: [indexPath], with: .automatic)
         : tableView.deleteRows(at: [indexPath], with: .automatic)
     }
-    
 }

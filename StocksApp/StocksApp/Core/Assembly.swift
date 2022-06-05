@@ -36,7 +36,6 @@ final class Assembly {
         let presenter = FavoriteStocksPresenter(service: stocksService)
         let favoritesVC = FavoriteStocksViewController(presenter: presenter)
         presenter.viewController = favoritesVC
-        presenter.delegate = stocksPresenter
         return favoritesVC
     }
     
