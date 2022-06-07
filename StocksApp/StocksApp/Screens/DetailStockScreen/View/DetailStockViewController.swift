@@ -75,11 +75,21 @@ class DetailStockViewController: UIViewController {
         return label
     }()
     
-    private lazy var graphicImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+    private lazy var priceStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [priceLabel, priceChangeLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints  = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    private lazy var chartsContainerView: ChartsContainerView = {
+        let view = ChartsContainerView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .gray
+        return view
     }()
     
     
@@ -100,16 +110,6 @@ class DetailStockViewController: UIViewController {
         navigationBarBorder(for: false)
     }
     
-    
-    private lazy var priceStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [priceLabel, priceChangeLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints  = false
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .center
-        stackView.spacing = 8
-        return stackView
-    }()
     
     // MARK: - Methods
     
@@ -148,9 +148,8 @@ class DetailStockViewController: UIViewController {
         }
     }
     private func setupSubviews() {
-        
         view.addSubview(priceStackView)
-        view.addSubview(graphicImageView)
+        view.addSubview(chartsContainerView)
     }
     
     private func setupConstraints() {
@@ -158,14 +157,12 @@ class DetailStockViewController: UIViewController {
             //priceStackView
             priceStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             priceStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 63),
-            
-            //graphicImageView
-            graphicImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            graphicImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            graphicImageView.topAnchor.constraint(equalTo: priceStackView.bottomAnchor, constant: 30),
-            graphicImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-           
+
+           //chartsContainerView
+            chartsContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            chartsContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            chartsContainerView.topAnchor.constraint(equalTo: priceStackView.bottomAnchor, constant: 30),
+        
         ])
     }
     
@@ -185,7 +182,7 @@ class DetailStockViewController: UIViewController {
 // MARK: - StockDetailViewControllerProtocol
 extension DetailStockViewController: StockDetailViewControllerProtocol {
     func updateView() {
-        graphicImageView.image = UIImage(named: "graph")
+        
     }
     
     func updateView(withLoader isLoading: Bool) {

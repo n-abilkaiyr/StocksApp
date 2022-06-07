@@ -55,7 +55,15 @@ extension UIFont {
 
 
 extension UIColor {
-    static let favoriteButtonColor = UIColor(red: 1, green: 202 / 255, blue: 28 / 255, alpha: 1)
+    static let favoriteButtonColor = UIColor(red: 1,
+                                             green: 202 / 255,
+                                             blue: 28 / 255,
+                                             alpha: 1)
+    
+    static let periodButtonBackgroundColor = UIColor(red: 240 / 255,
+                                                     green: 244 / 255,
+                                                     blue: 247 / 255,
+                                                     alpha: 1)
 }
 
 

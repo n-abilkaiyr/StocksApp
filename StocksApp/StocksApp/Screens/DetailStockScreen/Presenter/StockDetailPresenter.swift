@@ -40,7 +40,7 @@ final class StockDetailPresenter: StockDetailPreneterProtocol {
             self?.stockDetailViewController?.updateView(withLoader: false)
             switch result {
             case .success(let charts):
-                charts.prices.forEach { print($0.date)}
+//                charts.prices.forEach { print($0.date)}
                 self?.stockDetailViewController?.updateView()
             case .failure(let error):
                 self?.stockDetailViewController?.updateView(withError: error.localizedDescription)

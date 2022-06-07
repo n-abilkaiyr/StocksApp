@@ -63,5 +63,4 @@ extension FavoriteStocksPresenter: FavoriteUpdateServiceProtocol {
             viewController?.updateCell(for: IndexPath(row: index, section: 0), state: false)
         }
     }
-    
 }

@@ -37,6 +37,7 @@
 		74C158F728496229000C4889 /* UserDefaultsFavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C158F628496229000C4889 /* UserDefaultsFavoritesService.swift */; };
 		74C158FA284967AA000C4889 /* ChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C158F9284967AA000C4889 /* ChartService.swift */; };
 		74C158FC28497602000C4889 /* FavoriteUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C158FB28497602000C4889 /* FavoriteUpdateService.swift */; };
+		74C32B1F284E01D90065DBB9 /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C32B1E284E01D90065DBB9 /* ChartsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		74C158F628496229000C4889 /* UserDefaultsFavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsFavoritesService.swift; sourceTree = "<group>"; };
 		74C158F9284967AA000C4889 /* ChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartService.swift; sourceTree = "<group>"; };
 		74C158FB28497602000C4889 /* FavoriteUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteUpdateService.swift; sourceTree = "<group>"; };
+		74C32B1E284E01D90065DBB9 /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				743B77642840D0C100B29E46 /* DetailStockViewController.swift */,
+				74C32B1E284E01D90065DBB9 /* ChartsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				74C0B8F52843DF07005C79E7 /* Assembly.swift in Sources */,
 				74B7F907283D268900F303CD /* AppDelegate.swift in Sources */,
 				743B7759283FC21100B29E46 /* Router.swift in Sources */,
+				74C32B1F284E01D90065DBB9 /* ChartsView.swift in Sources */,
 				743B7757283FC21100B29E46 /* HTTPMethod.swift in Sources */,
 				74C158F728496229000C4889 /* UserDefaultsFavoritesService.swift in Sources */,
 				74504D5D2846A419005AA071 /* FavoriteService.swift in Sources */,
