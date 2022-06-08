@@ -17,6 +17,8 @@ protocol StockServiceProtocol {
     func fetchStocks(completion: @escaping ClientCompletion)
     
     func getFavoriteStocks() -> [StockModelProtocol]
+    
+    func getStocks() -> [StockModelProtocol]
 }
 
 final class StockService: StockServiceProtocol {
@@ -32,12 +34,9 @@ final class StockService: StockServiceProtocol {
     func fetchStocks(currency: String, count: Int, completion: @escaping ClientCompletion) {
         
         if stocksModels.isEmpty {
-            print("isEmpty")
             let serviceCompletion = serviceCompletion(with: completion)
-            
             client.execute(with: StocksRouter.stocks(currency: currency, count: count), completion: serviceCompletion)
         } else {
-            print("isNotEmpty")
             completion(.success(stocksModels))
         }
         
@@ -45,6 +44,10 @@ final class StockService: StockServiceProtocol {
     
     func getFavoriteStocks() -> [StockModelProtocol] {
         stocksModels.filter {$0.isFavorite}
+    }
+    
+    func getStocks() -> [StockModelProtocol] {
+        stocksModels
     }
     
     private func serviceCompletion(with completion: @escaping ClientCompletion ) -> ServiceCompletion {

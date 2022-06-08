@@ -17,6 +17,9 @@
 		744A9AFE2842A903005B5523 /* StocksRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A9AFD2842A903005B5523 /* StocksRouter.swift */; };
 		744A9B002842A97F005B5523 /* StockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A9AFF2842A97F005B5523 /* StockModel.swift */; };
 		744A9B022842AA1E005B5523 /* StockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744A9B012842AA1E005B5523 /* StockResponse.swift */; };
+		744BCF16284FA9E5004C88C2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 744BCF15284FA9E5004C88C2 /* Kingfisher */; };
+		744BCF27284FE59B004C88C2 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744BCF26284FE59B004C88C2 /* SearchService.swift */; };
+		744BCF29284FEF35004C88C2 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744BCF28284FEF35004C88C2 /* SearchView.swift */; };
 		74504D5D2846A419005AA071 /* FavoriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74504D5C2846A419005AA071 /* FavoriteService.swift */; };
 		74504D61284727DE005AA071 /* FavoriteStocksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74504D60284727DE005AA071 /* FavoriteStocksPresenter.swift */; };
 		74504D6428472EFA005AA071 /* FavoriteStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74504D6328472EFA005AA071 /* FavoriteStocksViewController.swift */; };
@@ -38,6 +41,8 @@
 		74C158FA284967AA000C4889 /* ChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C158F9284967AA000C4889 /* ChartService.swift */; };
 		74C158FC28497602000C4889 /* FavoriteUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C158FB28497602000C4889 /* FavoriteUpdateService.swift */; };
 		74C32B1F284E01D90065DBB9 /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C32B1E284E01D90065DBB9 /* ChartsView.swift */; };
+		74DCCC6B2850008900E894A5 /* SearchStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DCCC6A2850008900E894A5 /* SearchStocksViewController.swift */; };
+		74DCCC6D285000E000E894A5 /* SearchStockPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DCCC6C285000E000E894A5 /* SearchStockPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +56,8 @@
 		744A9AFD2842A903005B5523 /* StocksRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksRouter.swift; sourceTree = "<group>"; };
 		744A9AFF2842A97F005B5523 /* StockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockModel.swift; sourceTree = "<group>"; };
 		744A9B012842AA1E005B5523 /* StockResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockResponse.swift; sourceTree = "<group>"; };
+		744BCF26284FE59B004C88C2 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		744BCF28284FEF35004C88C2 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		74504D5C2846A419005AA071 /* FavoriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteService.swift; sourceTree = "<group>"; };
 		74504D60284727DE005AA071 /* FavoriteStocksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteStocksPresenter.swift; sourceTree = "<group>"; };
 		74504D6328472EFA005AA071 /* FavoriteStocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteStocksViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +81,8 @@
 		74C158F9284967AA000C4889 /* ChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartService.swift; sourceTree = "<group>"; };
 		74C158FB28497602000C4889 /* FavoriteUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteUpdateService.swift; sourceTree = "<group>"; };
 		74C32B1E284E01D90065DBB9 /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
+		74DCCC6A2850008900E894A5 /* SearchStocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStocksViewController.swift; sourceTree = "<group>"; };
+		74DCCC6C285000E000E894A5 /* SearchStockPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				744BCF16284FA9E5004C88C2 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +114,7 @@
 				743B774C283FC05500B29E46 /* StocksScreen */,
 				743B77602840D06300B29E46 /* DetailStockScreen */,
 				74504D5E28470EBE005AA071 /* FavoriteStocksScreen */,
+				744BCF17284FE0BE004C88C2 /* SearchScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -226,6 +237,41 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		744BCF17284FE0BE004C88C2 /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				744BCF25284FE580004C88C2 /* SearchService */,
+				744BCF1F284FE42A004C88C2 /* View */,
+				744BCF21284FE42A004C88C2 /* Presenter */,
+			);
+			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		744BCF1F284FE42A004C88C2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				744BCF28284FEF35004C88C2 /* SearchView.swift */,
+				74DCCC6A2850008900E894A5 /* SearchStocksViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		744BCF21284FE42A004C88C2 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				74DCCC6C285000E000E894A5 /* SearchStockPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		744BCF25284FE580004C88C2 /* SearchService */ = {
+			isa = PBXGroup;
+			children = (
+				744BCF26284FE59B004C88C2 /* SearchService.swift */,
+			);
+			path = SearchService;
+			sourceTree = "<group>";
+		};
 		74504D5B2846A403005AA071 /* FavoriteService */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +388,9 @@
 			dependencies = (
 			);
 			name = StocksApp;
+			packageProductDependencies = (
+				744BCF15284FA9E5004C88C2 /* Kingfisher */,
+			);
 			productName = StocksApp;
 			productReference = 74B7F903283D268900F303CD /* StocksApp.app */;
 			productType = "com.apple.product-type.application";
@@ -370,6 +419,9 @@
 				Base,
 			);
 			mainGroup = 74B7F8FA283D268900F303CD;
+			packageReferences = (
+				744BCF14284FA9E5004C88C2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 74B7F904283D268900F303CD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -402,6 +454,7 @@
 			files = (
 				74B7F922283D491500F303CD /* Extensions.swift in Sources */,
 				74504D61284727DE005AA071 /* FavoriteStocksPresenter.swift in Sources */,
+				74DCCC6D285000E000E894A5 /* SearchStockPresenter.swift in Sources */,
 				74C158FC28497602000C4889 /* FavoriteUpdateService.swift in Sources */,
 				743B775A283FC21100B29E46 /* NetworkError.swift in Sources */,
 				74504D6428472EFA005AA071 /* FavoriteStocksViewController.swift in Sources */,
@@ -410,14 +463,17 @@
 				744A9AFB284297BB005B5523 /* StocksPresenter.swift in Sources */,
 				744A9AFE2842A903005B5523 /* StocksRouter.swift in Sources */,
 				74B7F90B283D268900F303CD /* StocksViewController.swift in Sources */,
+				74DCCC6B2850008900E894A5 /* SearchStocksViewController.swift in Sources */,
 				74C0B8FE28441982005C79E7 /* ChartResponse.swift in Sources */,
 				74C0B8FC28441587005C79E7 /* StockDetailPresenter.swift in Sources */,
 				74C158FA284967AA000C4889 /* ChartService.swift in Sources */,
+				744BCF27284FE59B004C88C2 /* SearchService.swift in Sources */,
 				74C158F52849621B000C4889 /* FileManagerFavoritesService.swift in Sources */,
 				74C0B8F52843DF07005C79E7 /* Assembly.swift in Sources */,
 				74B7F907283D268900F303CD /* AppDelegate.swift in Sources */,
 				743B7759283FC21100B29E46 /* Router.swift in Sources */,
 				74C32B1F284E01D90065DBB9 /* ChartsView.swift in Sources */,
+				744BCF29284FEF35004C88C2 /* SearchView.swift in Sources */,
 				743B7757283FC21100B29E46 /* HTTPMethod.swift in Sources */,
 				74C158F728496229000C4889 /* UserDefaultsFavoritesService.swift in Sources */,
 				74504D5D2846A419005AA071 /* FavoriteService.swift in Sources */,
@@ -621,6 +677,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		744BCF14284FA9E5004C88C2 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		744BCF15284FA9E5004C88C2 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 744BCF14284FA9E5004C88C2 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 74B7F8FB283D268900F303CD /* Project object */;
 }

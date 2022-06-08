@@ -1,16 +1,16 @@
 //
-//  ViewController.swift
+//  SearchStocksViewController.swift
 //  StocksApp
 //
-//  Created by Abilkaiyr Nurzhan on 24.05.2022.
+//  Created by Abilkaiyr Nurzhan on 08.06.2022.
 //
 
 import UIKit
 
-final class StocksViewController: UIViewController {
-    private let presenter: StocksPresenterProtocol
+final class SearchViewController: UIViewController {
+    private let presenter: SearchStocksPresenterProtocol
     
-    init(presenter: StocksPresenterProtocol) {
+    init(presenter: SearchStocksPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -18,6 +18,19 @@ final class StocksViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private lazy var searchView: SearhView = {
+        let view = SearhView()
+        view.delegate = presenter
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var wrapperView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
  
     private lazy var tableView: UITableView = {
        let tableView = UITableView()
@@ -28,7 +41,6 @@ final class StocksViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
-        
        return tableView
     }()
     
@@ -39,23 +51,28 @@ final class StocksViewController: UIViewController {
         setupSubview()
         presenter.loadView()
     }
-    
-  
-    
+        
 // MARK: - Methods
     private func setupVeiw() {
         view.backgroundColor = .systemBackground
     }
     private func setupSubview() {
+        
+        view.addSubview(searchView)
         view.addSubview(tableView)
+        
+        
         NSLayoutConstraint.activate([
+            searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+    
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: 8),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
     
     private func showError(_ message: String) {
         // show error
@@ -64,7 +81,7 @@ final class StocksViewController: UIViewController {
 
 
 // MARK: - UITableViewDataSource
-extension StocksViewController: UITableViewDataSource {
+extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.itemCount
     }
@@ -79,7 +96,7 @@ extension StocksViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension StocksViewController: UITableViewDelegate {
+extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? StockCell else{ return }
         cell.viewTapped()
@@ -94,7 +111,7 @@ extension StocksViewController: UITableViewDelegate {
     }
 }
 
-extension StocksViewController: StocksViewControllerProtocol {
+extension SearchViewController: StocksViewControllerProtocol {
 
     func updateView() {
         tableView.reloadData()
