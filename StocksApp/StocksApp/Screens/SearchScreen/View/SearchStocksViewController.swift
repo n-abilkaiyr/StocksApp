@@ -26,12 +26,6 @@ final class SearchViewController: UIViewController {
         return view
     }()
     
-    private lazy var wrapperView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
- 
     private lazy var tableView: UITableView = {
        let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false

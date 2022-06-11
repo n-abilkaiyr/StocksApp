@@ -88,7 +88,6 @@ class DetailStockViewController: UIViewController {
     private lazy var chartsContainerView: ChartsContainerView = {
         let view = ChartsContainerView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray
         return view
     }()
     
@@ -181,16 +180,16 @@ class DetailStockViewController: UIViewController {
 
 // MARK: - StockDetailViewControllerProtocol
 extension DetailStockViewController: StockDetailViewControllerProtocol {
-    func updateView() {
-        
+    func updateView(withChartModel chartModel: ChartsModel) {
+        chartsContainerView.configure(with: chartModel)
     }
-    
+
     func updateView(withLoader isLoading: Bool) {
-        
+        chartsContainerView.configure(with: isLoading)
     }
     
     func updateView(withError message: String) {
-        //
+       
     }
     
 }

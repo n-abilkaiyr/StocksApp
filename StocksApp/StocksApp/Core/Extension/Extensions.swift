@@ -65,6 +65,9 @@ extension UIColor {
                                                      green: 244 / 255,
                                                      blue: 247 / 255,
                                                      alpha: 1)
+    
+    static let chartTopColor =  UIColor(red: 0.863, green: 0.863, blue: 0.863, alpha: 1)
+    static let chartBottomColor = UIColor(red: 0.921, green: 0.921, blue: 0.921, alpha: 0)
 }
 
 

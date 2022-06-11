@@ -25,7 +25,7 @@ class SearchService: SearchServiceProtocol {
     func getFilteredStocks(by text: String?) -> [StockModelProtocol] {
         guard let text = text,
               !text.isEmpty else {
-            return service.getStocks()
+            return []
         }
         return service.getStocks().filter {$0.symbol.lowercased().contains(text.lowercased())}
     }

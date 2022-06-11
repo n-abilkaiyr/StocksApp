@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 protocol StockDetailViewControllerProtocol: AnyObject {
-    func updateView()
+    func updateView(withChartModel chartModel: ChartsModel)
     func updateView(withLoader isLoading: Bool)
     func updateView(withError message: String)
 }
@@ -36,16 +36,17 @@ final class StockDetailPresenter: StockDetailPreneterProtocol {
     
     func loadView() {
         stockDetailViewController?.updateView(withLoader: true)
-        service.fetchCharts(id: model.id) { [weak self] result in
+        
+        service.fetchCharts(id: model.id ) { [weak self] result in
             self?.stockDetailViewController?.updateView(withLoader: false)
             switch result {
             case .success(let charts):
-//                charts.prices.forEach { print($0.date)}
-                self?.stockDetailViewController?.updateView()
+                let chartModel = ChartsModel.build(from: charts)
+                self?.stockDetailViewController?.updateView(withChartModel: chartModel)
             case .failure(let error):
                 self?.stockDetailViewController?.updateView(withError: error.localizedDescription)
             }
         }
+        
     }
-    
 }
