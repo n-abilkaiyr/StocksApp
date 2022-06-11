@@ -21,6 +21,7 @@ final class ChartsContainerView: UIView {
         view.leftAxis.drawGridLinesEnabled = false
         view.rightAxis.enabled = false
         view.rightAxis.drawGridLinesEnabled = false
+        view.doubleTapToZoomEnabled = false
         view.legend.setCustom(entries: [])
         view.backgroundColor = .systemBackground
         return view
