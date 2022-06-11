@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 // MARK: - NSObject + Extension
 extension NSObject {
@@ -53,7 +54,7 @@ extension UIFont {
     }
 }
 
-
+// MARK: - UIColor
 extension UIColor {
     static let favoriteButtonColor = UIColor(red: 1,
                                              green: 202 / 255,
@@ -64,6 +65,19 @@ extension UIColor {
                                                      green: 244 / 255,
                                                      blue: 247 / 255,
                                                      alpha: 1)
+    
+    static let chartTopColor =  UIColor(red: 0.863, green: 0.863, blue: 0.863, alpha: 1)
+    static let chartBottomColor = UIColor(red: 0.921, green: 0.921, blue: 0.921, alpha: 0)
 }
 
 
+
+// MARK: - UIImageView
+extension UIImageView {
+    func setImage(from source: String?, placeholder: UIImage?) {
+        guard let urlString = source,
+              let url = URL(string: urlString) else { return }
+        kf.indicatorType = .activity
+        kf.setImage(with: url, placeholder: placeholder )
+    }
+}

@@ -40,7 +40,11 @@ final class Assembly {
     }
     
     private  func searchModule() -> UIViewController {
-        UIViewController()
+        let searchService = SearchService(service: stocksService)
+        let presenter = SearchPersenter(service: searchService)
+        let searchVC = SearchViewController(presenter: presenter)
+        presenter.viewController = searchVC
+        return searchVC
     }
     
     

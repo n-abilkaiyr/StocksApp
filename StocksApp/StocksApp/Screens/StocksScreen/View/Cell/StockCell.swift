@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 
 
 final class StockCell: UITableViewCell {
@@ -15,7 +15,6 @@ final class StockCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "YNDX")
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
         return imageView
@@ -23,7 +22,6 @@ final class StockCell: UITableViewCell {
     
     private lazy var symbolLabel: UILabel = {
         let label = UILabel()
-        label.text = "YNDX"
         label.font = UIFont.bold(size: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -41,7 +39,6 @@ final class StockCell: UITableViewCell {
     
     private lazy var stockNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Yandex, LLC"
         label.font = UIFont.semiBold(size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -49,7 +46,6 @@ final class StockCell: UITableViewCell {
     
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "4 764,6 ₽"
         label.font = UIFont.bold(size: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -58,7 +54,6 @@ final class StockCell: UITableViewCell {
   
     private lazy var percentLabel: UILabel = {
         let label = UILabel()
-        label.text = "+55 ₽ (1,15%)"
         label.font = UIFont.semiBold(size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -105,10 +100,11 @@ final class StockCell: UITableViewCell {
         percentLabel.text = model.change
         percentLabel.textColor = model.changeColor
         favoriteButton.isSelected = model.isFavorite
-
         favoriteAction = {
             model.setFavorite()
         }
+       
+        iconImageView.setImage(from: model.iconURL, placeholder: nil)
     }
     
     private func animateWrapperView() {
@@ -178,6 +174,30 @@ final class StockCell: UITableViewCell {
         favoriteButton.isSelected.toggle()
         favoriteAction?()
     }
+    
+    private func loadImage(from urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        let iconTag = tag
+        iconImageView.image = nil
+                
+        let cache = URLCache(memoryCapacity: 50, diskCapacity: 50, diskPath: "stock_icons")
+        let configuration = URLSessionConfiguration.default
+        configuration.urlCache = cache
+        configuration.httpMaximumConnectionsPerHost = 5
+       
+        let session = URLSession(configuration: configuration)
+        
+        session.dataTask(with: url) { [weak self] data, _, _ in
+            guard let data = data else { return }
+            let image = UIImage(data: data)
+            
+            DispatchQueue.main.async {
+                if iconTag == self?.tag {
+                    self?.iconImageView.image = image
+                }
+            }
+        }.resume()
+    }
 }
 
 
@@ -203,5 +223,3 @@ extension UIColor {
         }
     }
 }
-
-
